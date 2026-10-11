@@ -1,56 +1,151 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b1220">
-<title>Gold Auto Trader</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101923">
+<title>GOLD AUTO | Mini App</title>
 <style>
-:root{--bg:#0b1220;--panel:#121c2e;--muted:#8fa0b8;--line:#26344a;--green:#35d49a;--red:#ff6b76;--gold:#f2c66d}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#edf3fb;font-family:Tahoma,Arial,sans-serif}
-.wrap{max-width:760px;margin:auto;padding:18px}.top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
-.logo{width:48px;height:48px;border-radius:14px;background:#173a35;color:var(--green);display:grid;place-items:center;font-size:25px}
-h1{font-size:20px;margin:0 0 5px}.sub{font-size:12px;color:var(--muted)}
-.pill{margin-right:auto;border:1px solid #5a4828;color:var(--gold);border-radius:20px;padding:7px 10px;font-size:11px}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:16px;margin-bottom:14px}
-.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.muted{color:var(--muted);font-size:12px}
-.price{font-size:27px;font-weight:bold;margin:8px 0}.green{color:var(--green)}.red{color:var(--red)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.stat{background:#0d1626;border:1px solid var(--line);border-radius:13px;padding:13px}.stat strong{display:block;font-size:18px;margin-top:8px}
-button{border:0;border-radius:12px;padding:13px 16px;font-size:14px;font-weight:bold;cursor:pointer}
-.primary{background:var(--green);color:#082017}.secondary{background:#25334a;color:#eef4ff}.danger{background:#4a202b;color:#ffdce0}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-.status{display:inline-block;border-radius:20px;background:#342c1c;color:var(--gold);padding:6px 10px;font-size:11px}
-.chart{height:145px;display:flex;align-items:end;gap:5px;padding:15px 0 4px;border-bottom:1px solid var(--line)}
-.bar{flex:1;border-radius:4px 4px 0 0;background:var(--green);opacity:.85}.bar.down{background:var(--red)}
-.note{font-size:12px;line-height:1.8;color:var(--muted)}
-table{width:100%;border-collapse:collapse;font-size:12px}td,th{text-align:right;padding:10px 4px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:normal}
-.footer{text-align:center;color:var(--muted);font-size:11px;padding:8px}
-@media(min-width:600px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+:root{--bg:#0b121a;--panel:#121e29;--panel2:#192836;--text:#edf4f8;--muted:#91a5b5;--green:#50d6a8;--red:#ff727e;--gold:#f3c969;--line:#263746}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.app{max-width:760px;margin:auto;padding:14px 14px 28px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#f3c969,#8f6820);display:grid;place-items:center;color:#171b1e;font-weight:900;font-size:20px}
+h1{font-size:18px;margin:0;letter-spacing:.4px} .sub{color:var(--muted);font-size:12px;margin-top:3px}
+button,select{font:inherit;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;padding:9px 11px}
+button{cursor:pointer}button:active{transform:scale(.98)}.topbtn{font-size:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:15px;margin-bottom:12px}
+.price-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.symbol{font-size:13px;color:var(--muted)}.price{font-size:29px;font-weight:800;letter-spacing:.3px;margin-top:5px}.change{font-size:12px;color:var(--muted);margin-top:4px}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 9px;font-size:11px;background:#342b16;color:var(--gold);white-space:nowrap}
+.dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:2px 0 11px;font-size:14px;font-weight:700}
+#tv_chart{height:360px;overflow:hidden;border-radius:12px;background:#0d1720}
+.notice{font-size:11px;line-height:1.6;color:var(--muted);margin-top:9px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.metric{background:var(--panel2);padding:12px;border-radius:12px;min-width:0}
+.metric .label{font-size:11px;color:var(--muted)}.metric .value{font-weight:750;font-size:16px;margin-top:6px;overflow-wrap:anywhere}
+.signalbox{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.signal{font-size:23px;font-weight:900}.buy{color:var(--green)}.sell{color:var(--red)}.wait{color:var(--gold)}
+.signal-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-top:5px}
+.controls{display:flex;flex-wrap:wrap;gap:8px}.controls button.active{border-color:var(--gold);color:var(--gold)}
+.rows{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.rowitem{background:var(--panel2);padding:10px;border-radius:10px;display:flex;justify-content:space-between;gap:8px;font-size:12px}.rowitem span:first-child{color:var(--muted)}
+.footer{font-size:10px;line-height:1.6;color:#718595;text-align:center;padding:10px 4px}
+nav{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px}
+nav button{font-size:12px;padding:10px 3px}
+nav button.active{background:#273b4b;border-color:#476277}
+[hidden]{display:none!important}
+@media(max-width:420px){.app{padding:11px}.price{font-size:25px}#tv_chart{height:320px}.card{padding:12px}}
 </style>
 </head>
-<body><main class="wrap">
-<header class="top"><div class="logo">↗</div><div><h1>Gold Auto Trader</h1><div class="sub">داشبورد کنترل ربات طلا · نسخه اولیه</div></div><span class="pill">دمو فقط</span></header>
-<section class="panel">
- <div class="row"><div><div class="muted">نماد معاملاتی</div><h2 style="margin:7px 0">XAUUSD · M1</h2></div><span class="status" id="status">اتصال برقرار نیست</span></div>
- <div class="price">— <span class="muted">قیمت زنده هنوز متصل نیست</span></div>
- <div class="chart" aria-label="نمونه نمایشی نمودار">
-   <div class="bar" style="height:35%"></div><div class="bar" style="height:48%"></div><div class="bar down" style="height:42%"></div><div class="bar down" style="height:30%"></div><div class="bar" style="height:46%"></div><div class="bar" style="height:58%"></div><div class="bar down" style="height:50%"></div><div class="bar" style="height:69%"></div><div class="bar" style="height:78%"></div><div class="bar down" style="height:62%"></div><div class="bar" style="height:85%"></div><div class="bar" style="height:73%"></div><div class="bar down" style="height:60%"></div><div class="bar" style="height:82%"></div>
- </div><div class="muted" style="margin-top:8px">نمودار بالا صرفاً نمونه ظاهری است و قیمت واقعی نیست.</div>
+<body>
+<div class="app">
+<header>
+ <div class="brand"><div class="logo">G</div><div><h1>GOLD AUTO</h1><div class="sub" id="subtitle">مینی‌اپ تحلیل طلا · XAUUSD</div></div></div>
+ <button class="topbtn" id="langBtn" aria-label="Change language">EN / فا</button>
+</header>
+<nav>
+ <button class="active" data-tab="chart" id="tabChart">نمودار</button>
+ <button data-tab="signals" id="tabSignals">سیگنال</button>
+ <button data-tab="history" id="tabHistory">تاریخچه</button>
+ <button data-tab="settings" id="tabSettings">تنظیمات</button>
+</nav>
+
+<section id="page-chart">
+ <div class="card">
+  <div class="price-row">
+   <div><div class="symbol">XAUUSD · GOLD · <span id="tfLabel">1 دقیقه</span></div><div class="price" id="price">—</div><div class="change" id="priceStatus">قیمت زنده از ابزارک قابل خواندن نیست</div></div>
+   <div class="pill"><span class="dot"></span><span id="modeLabel">حالت آزمایشی</span></div>
+  </div>
+ </div>
+ <div class="card">
+  <div class="section-title"><span id="chartTitle">نمودار بازار</span><span class="symbol">TradingView</span></div>
+  <div class="controls" style="margin-bottom:10px">
+   <button data-tf="1" class="active">M1</button><button data-tf="5">M5</button><button data-tf="15">M15</button><button data-tf="60">H1</button>
+  </div>
+  <div id="tv_chart"></div>
+  <div class="notice" id="chartNotice">نمودار عمومی TradingView است؛ نماد در دسترس و قیمت آن ممکن است با قیمت بروکر شما تفاوت داشته باشد.</div>
+ </div>
 </section>
-<section class="grid">
- <div class="stat"><div class="muted">سرمایه هدف</div><strong>$150</strong></div>
- <div class="stat"><div class="muted">حالت اجرا</div><strong>Demo</strong></div>
- <div class="stat"><div class="muted">سود و زیان</div><strong>—</strong></div>
- <div class="stat"><div class="muted">معاملات باز</div><strong>0</strong></div>
+
+<section id="page-signals" hidden>
+ <div class="card">
+  <div class="section-title"><span id="signalTitle">سیگنال فعلی</span><span class="pill" id="signalMode">DEMO</span></div>
+  <div class="signalbox"><div><div class="signal wait" id="signal">WAIT</div><div class="signal-desc" id="signalDesc">در انتظار کندل‌های نمونه برای نمایش الگوریتم</div></div><button id="refreshBtn">محاسبه مجدد</button></div>
+  <div class="rows">
+   <div class="rowitem"><span id="entryLabel">ورود نمونه</span><strong id="entry">—</strong></div>
+   <div class="rowitem"><span>RSI (14)</span><strong id="rsi">—</strong></div>
+   <div class="rowitem"><span>EMA (9)</span><strong id="ema9">—</strong></div>
+   <div class="rowitem"><span>EMA (21)</span><strong id="ema21">—</strong></div>
+   <div class="rowitem"><span id="slLabel">حد ضرر نمونه</span><strong id="sl">—</strong></div>
+   <div class="rowitem"><span id="tpLabel">حد سود نمونه</span><strong id="tp">—</strong></div>
+  </div>
+  <div class="notice" id="demoWarning">این سیگنال‌ها از داده نمونه داخل صفحه محاسبه می‌شوند و برای معامله واقعی مناسب نیستند.</div>
+ </div>
 </section>
-<section class="panel" style="margin-top:14px">
- <div class="row"><strong>کنترل ربات</strong><span class="muted">این دکمه‌ها فقط نمایشی‌اند</span></div>
- <div class="actions"><button class="primary" onclick="alert('هنوز به موتور MT5 وصل نیست. برای اجرای واقعی باید EA روی MT5 ویندوز/VPS نصب و اتصال امن ساخته شود.')">شروع ربات</button><button class="danger" onclick="document.getElementById('status').textContent='توقف در رابط نمایشی';alert('رابط نمایشی متوقف شد؛ این کار ربات واقعی را متوقف نمی‌کند.')">توقف</button></div>
+
+<section id="page-history" hidden>
+ <div class="card"><div class="section-title"><span id="historyTitle">تاریخچه محاسبات</span><button id="clearHistory">پاک‌کردن</button></div><div id="historyList" class="notice">هنوز محاسبه‌ای ثبت نشده است.</div></div>
 </section>
-<section class="panel">
- <div class="row"><strong>معاملات اخیر</strong><span class="muted">بدون داده متصل</span></div>
- <table><thead><tr><th>نماد</th><th>جهت</th><th>حجم</th><th>نتیجه</th></tr></thead><tbody><tr><td colspan="4" class="muted" style="text-align:center;padding:20px">پس از اتصال حساب، داده‌ها اینجا نمایش داده می‌شوند.</td></tr></tbody></table>
+
+<section id="page-settings" hidden>
+ <div class="card">
+  <div class="section-title"><span id="settingsTitle">تنظیمات</span></div>
+  <label for="languageSelect" id="languageLabel" class="symbol">زبان / Language</label>
+  <div style="margin:8px 0 14px"><select id="languageSelect"><option value="fa">فارسی</option><option value="en">English</option></select></div>
+  <label for="symbolSelect" id="symbolLabel" class="symbol">نماد نمودار</label>
+  <div style="margin:8px 0 14px"><select id="symbolSelect"><option value="OANDA:XAUUSD">OANDA:XAUUSD</option><option value="FOREXCOM:XAUUSD">FOREXCOM:XAUUSD</option><option value="TVC:GOLD">TVC:GOLD</option></select></div>
+  <button id="applySettings">اعمال تنظیمات نمودار</button>
+  <div class="notice" id="settingsNotice">برای سیگنال زنده باید یک منبع داده کندل واقعی به برنامه وصل شود. کلید API محرمانه را در فایل عمومی قرار ندهید.</div>
+ </div>
 </section>
-<section class="panel"><strong>محافظت از سرمایه</strong><p class="note">نسخه آزمایشی باید فقط روی حساب Demo اجرا شود. حد ضرر، محدودیت تعداد معاملات، فیلتر اسپرد و توقف پس از افت سرمایه باید قبل از هر اتصال واقعی آزمایش شوند. هیچ سودی تضمین‌شده نیست.</p></section>
-<div class="footer">Gold Auto Trader · Starter UI · اتصال بروکر هنوز پیکربندی نشده</div>
-</main></body></html>
+<div class="footer" id="footer">ابزار آموزشی است؛ توصیه مالی نیست. نسخه فعلی معامله باز نمی‌کند و به MT5 یا XCHIF متصل نیست.</div>
+</div>
+<script src="https://s3.tradingview.com/tv.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+let lang='fa', tf='1', symbol='OANDA:XAUUSD', history=[];
+const copy={
+fa:{subtitle:'مینی‌اپ تحلیل طلا · XAUUSD',chart:'نمودار',signals:'سیگنال',history:'تاریخچه',settings:'تنظیمات',one:'1 دقیقه',priceStatus:'قیمت زنده از ابزارک قابل خواندن نیست',demo:'حالت آزمایشی',chartTitle:'نمودار بازار',chartNotice:'نمودار عمومی TradingView است؛ نماد در دسترس و قیمت آن ممکن است با قیمت بروکر شما تفاوت داشته باشد.',signalTitle:'سیگنال فعلی',waitDesc:'داده نمونه؛ سیگنال جهت‌دار فقط برای آزمایش الگوریتم است',entry:'ورود نمونه',sl:'حد ضرر نمونه',tp:'حد سود نمونه',warning:'این سیگنال‌ها از داده نمونه داخل صفحه محاسبه می‌شوند و برای معامله واقعی مناسب نیستند.',historyTitle:'تاریخچه محاسبات',empty:'هنوز محاسبه‌ای ثبت نشده است.',settingsTitle:'تنظیمات',language:'زبان / Language',symbol:'نماد نمودار',apply:'اعمال تنظیمات نمودار',settingsNotice:'برای سیگنال زنده باید یک منبع داده کندل واقعی به برنامه وصل شود. کلید API محرمانه را در فایل عمومی قرار ندهید.',footer:'ابزار آموزشی است؛ توصیه مالی نیست. نسخه فعلی معامله باز نمی‌کند و به MT5 یا XCHIF متصل نیست.',recalc:'محاسبه مجدد',clear:'پاک‌کردن',buy:'خرید (BUY)',sell:'فروش (SELL)',wait:'انتظار (WAIT)',calc:'محاسبه',m1:'1 دقیقه'},
+en:{subtitle:'Gold analysis mini app · XAUUSD',chart:'Chart',signals:'Signals',history:'History',settings:'Settings',one:'1 minute',priceStatus:'Live price cannot be read from the widget',demo:'Demo mode',chartTitle:'Market chart',chartNotice:'Public TradingView chart; symbol availability and price may differ from your broker.',signalTitle:'Current signal',waitDesc:'Sample data; directional signal is for algorithm testing only',entry:'Sample entry',sl:'Sample stop loss',tp:'Sample take profit',warning:'Signals are calculated from sample data embedded in this page and are not suitable for live trading.',historyTitle:'Calculation history',empty:'No calculations recorded yet.',settingsTitle:'Settings',language:'Language',symbol:'Chart symbol',apply:'Apply chart settings',settingsNotice:'Live signals require a real candle-data feed. Do not place secret API keys in a public file.',footer:'Educational tool; not financial advice. This version does not place trades or connect to MT5/XCHIF.',recalc:'Recalculate',clear:'Clear',buy:'BUY',sell:'SELL',wait:'WAIT',calc:'Calculation',m1:'1 minute'}
+};
+function tr(k){return copy[lang][k]||k}
+function renderChart(){
+ const holder=$('tv_chart');holder.innerHTML='';
+ if(!window.TradingView){holder.innerHTML='<div style="padding:18px;color:#91a5b5">TradingView widget could not load. Check your internet connection.</div>';return}
+ new TradingView.widget({autosize:true,symbol:symbol,interval:tf,timezone:'Etc/UTC',theme:'dark',style:'1',locale:lang==='fa'?'en':'en',enable_publishing:false,allow_symbol_change:true,hide_side_toolbar:true,save_image:false,container_id:'tv_chart',studies:[]});
+}
+function ema(values,period){let k=2/(period+1),out=[],v=values[0];for(let i=0;i<values.length;i++){v=i===0?values[i]:values[i]*k+v*(1-k);out.push(v)}return out}
+function rsi(values,period=14){let gains=0,losses=0;for(let i=values.length-period;i<values.length;i++){let d=values[i]-values[i-1];if(d>0)gains+=d;else losses-=d}let ag=gains/period,al=losses/period;if(al===0)return 100;return 100-(100/(1+ag/al))}
+function calcSignal(){
+ // Deterministic illustrative candle closes, NOT live market data.
+ const closes=[];let p=2650;
+ for(let i=0;i<80;i++){p += Math.sin(i*1.31)*0.7 + Math.cos(i*.39)*0.35 + (i%17<9?0.12:-0.10);closes.push(p)}
+ const e9=ema(closes,9),e21=ema(closes,21),rv=rsi(closes,14),last=closes.at(-1);
+ let side='WAIT'; if(e9.at(-1)>e21.at(-1)&&rv>52&&rv<72)side='BUY'; else if(e9.at(-1)<e21.at(-1)&&rv<48&&rv>28)side='SELL';
+ const sl=side==='BUY'?last-3:side==='SELL'?last+3:null,tp=side==='BUY'?last+5:side==='SELL'?last-5:null;
+ $('price').textContent=last.toFixed(2);$('priceStatus').textContent=lang==='fa'?'قیمت نمونه؛ زنده نیست':'Sample price; not live';
+ $('signal').textContent=tr(side==='BUY'?'buy':side==='SELL'?'sell':'wait');$('signal').className='signal '+(side==='BUY'?'buy':side==='SELL'?'sell':'wait');
+ $('signalDesc').textContent=tr('waitDesc');$('entry').textContent=last.toFixed(2);$('rsi').textContent=rv.toFixed(1);$('ema9').textContent=e9.at(-1).toFixed(2);$('ema21').textContent=e21.at(-1).toFixed(2);$('sl').textContent=sl===null?'—':sl.toFixed(2);$('tp').textContent=tp===null?'—':tp.toFixed(2);
+ history.unshift({side,price:last.toFixed(2),time:new Date().toLocaleTimeString()});history=history.slice(0,15);renderHistory();
+}
+function renderHistory(){const h=$('historyList');if(!history.length){h.textContent=tr('empty');return}h.innerHTML=history.map(x=>`<div class="rowitem" style="margin-bottom:7px"><span>${x.time} · ${x.price}</span><strong class="${x.side==='BUY'?'buy':x.side==='SELL'?'sell':'wait'}">${x.side}</strong></div>`).join('')}
+function setLang(next){lang=next;document.documentElement.lang=lang;document.documentElement.dir=lang==='fa'?'rtl':'ltr';
+ const ids={subtitle:'subtitle',tabChart:'chart',tabSignals:'signals',tabHistory:'history',tabSettings:'settings',chartTitle:'chartTitle',chartNotice:'chartNotice',signalTitle:'signalTitle',entryLabel:'entry',slLabel:'sl',tpLabel:'tp',demoWarning:'warning',historyTitle:'historyTitle',settingsTitle:'settingsTitle',languageLabel:'language',symbolLabel:'symbol',applySettings:'apply',settingsNotice:'settingsNotice',footer:'footer',refreshBtn:'recalc',clearHistory:'clear'};
+ for(const [id,key] of Object.entries(ids))$(id).textContent=tr(key);
+ $('modeLabel').textContent=tr('demo');$('signalMode').textContent='DEMO';$('tfLabel').textContent=tr('m1');$('priceStatus').textContent=tr('priceStatus');$('languageSelect').value=lang;
+ document.querySelectorAll('[data-tab]').forEach(b=>b.textContent=tr(b.dataset.tab));
+ renderHistory();calcSignal();
+}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));['chart','signals','history','settings'].forEach(p=>$('page-'+p).hidden=p!==b.dataset.tab);if(b.dataset.tab==='chart')renderChart()}));
+document.querySelectorAll('[data-tf]').forEach(b=>b.addEventListener('click',()=>{tf=b.dataset.tf;document.querySelectorAll('[data-tf]').forEach(x=>x.classList.toggle('active',x===b));$('tfLabel').textContent=({'1':'1 دقیقه','5':'5 دقیقه','15':'15 دقیقه','60':'1 ساعت'})[tf];renderChart()}));
+$('langBtn').addEventListener('click',()=>setLang(lang==='fa'?'en':'fa'));
+$('languageSelect').addEventListener('change',e=>setLang(e.target.value));
+$('symbolSelect').value=symbol;
+$('applySettings').addEventListener('click',()=>{symbol=$('symbolSelect').value;renderChart()});
+$('refreshBtn').addEventListener('click',calcSignal);
+$('clearHistory').addEventListener('click',()=>{history=[];renderHistory()});
+setLang('fa');renderChart();
+</script>
+</body>
+</html>
