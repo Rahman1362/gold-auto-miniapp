@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<title>Gold Auto Trader</title>
+<style>
+:root{--bg:#0b1220;--panel:#121c2e;--muted:#8fa0b8;--line:#26344a;--green:#35d49a;--red:#ff6b76;--gold:#f2c66d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#edf3fb;font-family:Tahoma,Arial,sans-serif}
+.wrap{max-width:760px;margin:auto;padding:18px}.top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.logo{width:48px;height:48px;border-radius:14px;background:#173a35;color:var(--green);display:grid;place-items:center;font-size:25px}
+h1{font-size:20px;margin:0 0 5px}.sub{font-size:12px;color:var(--muted)}
+.pill{margin-right:auto;border:1px solid #5a4828;color:var(--gold);border-radius:20px;padding:7px 10px;font-size:11px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:16px;margin-bottom:14px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.muted{color:var(--muted);font-size:12px}
+.price{font-size:27px;font-weight:bold;margin:8px 0}.green{color:var(--green)}.red{color:var(--red)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.stat{background:#0d1626;border:1px solid var(--line);border-radius:13px;padding:13px}.stat strong{display:block;font-size:18px;margin-top:8px}
+button{border:0;border-radius:12px;padding:13px 16px;font-size:14px;font-weight:bold;cursor:pointer}
+.primary{background:var(--green);color:#082017}.secondary{background:#25334a;color:#eef4ff}.danger{background:#4a202b;color:#ffdce0}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.status{display:inline-block;border-radius:20px;background:#342c1c;color:var(--gold);padding:6px 10px;font-size:11px}
+.chart{height:145px;display:flex;align-items:end;gap:5px;padding:15px 0 4px;border-bottom:1px solid var(--line)}
+.bar{flex:1;border-radius:4px 4px 0 0;background:var(--green);opacity:.85}.bar.down{background:var(--red)}
+.note{font-size:12px;line-height:1.8;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:12px}td,th{text-align:right;padding:10px 4px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:normal}
+.footer{text-align:center;color:var(--muted);font-size:11px;padding:8px}
+@media(min-width:600px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="top"><div class="logo">↗</div><div><h1>Gold Auto Trader</h1><div class="sub">داشبورد کنترل ربات طلا · نسخه اولیه</div></div><span class="pill">دمو فقط</span></header>
+<section class="panel">
+ <div class="row"><div><div class="muted">نماد معاملاتی</div><h2 style="margin:7px 0">XAUUSD · M1</h2></div><span class="status" id="status">اتصال برقرار نیست</span></div>
+ <div class="price">— <span class="muted">قیمت زنده هنوز متصل نیست</span></div>
+ <div class="chart" aria-label="نمونه نمایشی نمودار">
+   <div class="bar" style="height:35%"></div><div class="bar" style="height:48%"></div><div class="bar down" style="height:42%"></div><div class="bar down" style="height:30%"></div><div class="bar" style="height:46%"></div><div class="bar" style="height:58%"></div><div class="bar down" style="height:50%"></div><div class="bar" style="height:69%"></div><div class="bar" style="height:78%"></div><div class="bar down" style="height:62%"></div><div class="bar" style="height:85%"></div><div class="bar" style="height:73%"></div><div class="bar down" style="height:60%"></div><div class="bar" style="height:82%"></div>
+ </div><div class="muted" style="margin-top:8px">نمودار بالا صرفاً نمونه ظاهری است و قیمت واقعی نیست.</div>
+</section>
+<section class="grid">
+ <div class="stat"><div class="muted">سرمایه هدف</div><strong>$150</strong></div>
+ <div class="stat"><div class="muted">حالت اجرا</div><strong>Demo</strong></div>
+ <div class="stat"><div class="muted">سود و زیان</div><strong>—</strong></div>
+ <div class="stat"><div class="muted">معاملات باز</div><strong>0</strong></div>
+</section>
+<section class="panel" style="margin-top:14px">
+ <div class="row"><strong>کنترل ربات</strong><span class="muted">این دکمه‌ها فقط نمایشی‌اند</span></div>
+ <div class="actions"><button class="primary" onclick="alert('هنوز به موتور MT5 وصل نیست. برای اجرای واقعی باید EA روی MT5 ویندوز/VPS نصب و اتصال امن ساخته شود.')">شروع ربات</button><button class="danger" onclick="document.getElementById('status').textContent='توقف در رابط نمایشی';alert('رابط نمایشی متوقف شد؛ این کار ربات واقعی را متوقف نمی‌کند.')">توقف</button></div>
+</section>
+<section class="panel">
+ <div class="row"><strong>معاملات اخیر</strong><span class="muted">بدون داده متصل</span></div>
+ <table><thead><tr><th>نماد</th><th>جهت</th><th>حجم</th><th>نتیجه</th></tr></thead><tbody><tr><td colspan="4" class="muted" style="text-align:center;padding:20px">پس از اتصال حساب، داده‌ها اینجا نمایش داده می‌شوند.</td></tr></tbody></table>
+</section>
+<section class="panel"><strong>محافظت از سرمایه</strong><p class="note">نسخه آزمایشی باید فقط روی حساب Demo اجرا شود. حد ضرر، محدودیت تعداد معاملات، فیلتر اسپرد و توقف پس از افت سرمایه باید قبل از هر اتصال واقعی آزمایش شوند. هیچ سودی تضمین‌شده نیست.</p></section>
+<div class="footer">Gold Auto Trader · Starter UI · اتصال بروکر هنوز پیکربندی نشده</div>
+</main></body></html>
