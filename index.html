@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#100e08"><title>GOLD AUTO — بازار و سیگنال</title>
+<style>
+:root{--bg:#100e08;--panel:#1b180e;--panel2:#242013;--gold:#e9b84e;--gold2:#ffcf62;--green:#39e6b0;--red:#ff6582;--muted:#98958a;--line:#393221}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#493218 0%,#171309 36%,#0c0b07 78%);color:#f4f0e4;font-family:Tahoma,Arial,sans-serif;padding:14px 13px 90px}
+header{display:flex;align-items:center;justify-content:space-between;margin:5px 2px 18px}.brand{display:flex;gap:10px;align-items:center}.logo{width:43px;height:43px;border-radius:14px;background:linear-gradient(145deg,#ffd36d,#98661b);display:grid;place-items:center;color:#171006;font-size:24px;font-weight:900;box-shadow:0 0 24px #dca63230}.brand h1{font-size:19px;margin:0;letter-spacing:.5px}.brand small{color:var(--muted);font-size:10px;display:block;margin-top:4px}.status{font-size:11px;color:var(--green);border:1px solid #286e57;background:#10251e;padding:7px 9px;border-radius:20px}
+.card{background:linear-gradient(145deg,#292315eF,#17150deF);border:1px solid #51442a;border-radius:25px;padding:17px;margin:12px 0;box-shadow:0 12px 35px #0004}.section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}.section-head h2{font-size:16px;margin:0}.sub{font-size:11px;color:var(--muted)}.gold{color:var(--gold2)}.price-row{display:flex;align-items:flex-end;justify-content:space-between;gap:8px}.price{font-size:28px;font-weight:800;letter-spacing:-.5px}.change{font-size:13px;font-weight:700}.positive{color:var(--green)}.negative{color:var(--red)}
+select,input,button{font:inherit;color:inherit;border:1px solid #4a4029;background:#302a1c;border-radius:13px;padding:10px 11px;outline:none}select{max-width:100%;font-size:12px}button{cursor:pointer;font-weight:700}button.primary{background:linear-gradient(135deg,#f6ca68,#b57a24);color:#211707;border:0}button.ghost{background:#242014}.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.controls select{flex:1;min-width:105px}
+.chart-wrap{height:235px;position:relative;margin-top:15px;background:#100f09;border:1px solid #2f291b;border-radius:17px;overflow:hidden}.chart-wrap canvas{width:100%;height:100%;display:block}.chart-label{position:absolute;top:9px;right:10px;font-size:10px;color:var(--muted);pointer-events:none}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#19170f;border:1px solid #393120;border-radius:18px;padding:14px}.stat span{display:block;color:var(--muted);font-size:11px;margin-bottom:8px}.stat strong{font-size:19px}
+.signal{border-radius:18px;padding:15px;background:#19170e;border:1px solid #3d3421;margin-top:10px}.signal-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.pill{border-radius:20px;padding:6px 10px;font-size:11px;font-weight:700}.buy{color:var(--green);background:#10372b;border:1px solid #236e55}.sell{color:var(--red);background:#3b1720;border:1px solid #793044}.neutral{color:var(--gold2);background:#3b2c11;border:1px solid #72551c}.levels{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px}.level{background:#211e14;border-radius:12px;padding:9px 5px;text-align:center}.level small{display:block;color:var(--muted);font-size:10px;margin-bottom:6px}.level b{font-size:11px;overflow-wrap:anywhere}
+.list{display:flex;flex-direction:column;gap:8px}.history-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #342d1d;font-size:12px}.history-row:last-child{border-bottom:0}.empty{color:var(--muted);font-size:12px;text-align:center;padding:16px 0}
+.note{font-size:11px;line-height:1.8;color:#aaa591}.config{display:grid;gap:9px}.config input{width:100%;font-size:12px}.hidden{display:none!important}
+nav{position:fixed;z-index:5;bottom:9px;left:12px;right:12px;display:flex;justify-content:space-around;gap:2px;background:#242116ed;border:1px solid #66532c;border-radius:23px;padding:8px 4px;backdrop-filter:blur(15px);box-shadow:0 8px 30px #0008}nav button{border:0;background:transparent;padding:8px 5px;color:#aaa38e;font-size:10px;flex:1}nav button.active{background:linear-gradient(135deg,#e8bb55,#94631e);color:#1c1407;border-radius:15px}nav button span{display:block;font-size:18px;margin-bottom:3px}
+footer{text-align:center;color:#766f5d;font-size:10px;margin-top:20px}
+@media(min-width:600px){body{max-width:520px;margin:auto}.chart-wrap{height:280px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">₳</div><div><h1>GOLD <span class="gold">AUTO</span></h1><small>MARKET INTELLIGENCE · نسخه آزمایشی</small></div></div><div class="status" id="connection">● در حال اتصال</div></header>
+
+<section id="marketPage">
+<div class="card">
+ <div class="section-head"><h2>بازار زنده</h2><span class="sub" id="lastUpdate">در انتظار داده…</span></div>
+ <div class="controls"><select id="asset"><option value="BTCUSDT">BTC / USDT</option><option value="ETHUSDT">ETH / USDT</option><option value="SOLUSDT">SOL / USDT</option><option value="BNBUSDT">BNB / USDT</option><option value="XAUUSD">طلا / XAUUSD</option><option value="EURUSD">یورو / دلار</option><option value="GBPUSD">پوند / دلار</option></select><select id="tf"><option value="1m">۱ دقیقه</option><option value="5m">۵ دقیقه</option><option value="15m">۱۵ دقیقه</option><option value="1h">۱ ساعت</option><option value="4h">۴ ساعت</option><option value="1d">۱ روز</option></select><button class="primary" id="refresh">بروزرسانی</button></div>
+ <div class="price-row" style="margin-top:17px"><div><div class="price" id="price">—</div><div class="sub" id="assetName">BTC / USDT</div></div><div style="text-align:left"><div class="change" id="change">—</div><div class="sub" id="source">منبع: Binance</div></div></div>
+ <div class="chart-wrap"><canvas id="chart"></canvas><span class="chart-label" id="chartCaption">نمودار کندل</span></div>
+ <p class="note" id="marketNote">قیمت رمزارزها از جریان عمومی Binance دریافت می‌شود. برای طلا و فارکس، کلید API از بخش تنظیمات لازم است.</p>
+</div>
+<div class="stats"><div class="stat"><span>قدرت سیگنال</span><strong id="score" class="gold">—</strong></div><div class="stat"><span>وضعیت بازار</span><strong id="trend">در انتظار</strong></div></div>
+<div class="card"><div class="section-head"><h2>آخرین تحلیل</h2><span class="sub" id="analysisTime">—</span></div><div id="currentSignal" class="empty">برای محاسبه سیگنال، داده‌های بازار در حال دریافت است.</div><p class="note">سیگنال‌ها بر پایه EMA 9/21، RSI و کندل‌های اخیر محاسبه می‌شوند؛ تضمین سود نیستند و ممکن است در بازار پرنوسان خطا کنند.</p></div>
+</section>
+
+<section id="signalsPage" class="hidden">
+<div class="card"><div class="section-head"><h2>سیگنال‌ها</h2><span class="sub">تحلیل تکنیکال خودکار</span></div><div class="controls"><select id="signalFilter"><option value="all">همه وضعیت‌ها</option><option value="BUY">خرید</option><option value="SELL">فروش</option><option value="WAIT">انتظار</option></select><button id="notifyBtn" class="primary">فعال‌سازی اعلان</button></div><div id="signalsList" class="list" style="margin-top:12px"><div class="empty">هنوز سیگنالی ثبت نشده است.</div></div></div>
+</section>
+
+<section id="toolsPage" class="hidden">
+<div class="card"><div class="section-head"><h2>تنظیمات اتصال</h2><span class="sub">بدون اجرای معامله</span></div>
+ <div class="config"><label class="sub">کلید API سرویس Twelve Data (برای XAUUSD و فارکس)</label><input id="apiKey" type="password" placeholder="API Key را وارد کنید"><label class="sub">نماد فلز/فارکس</label><select id="fxSymbol"><option value="XAU/USD">طلا XAU/USD</option><option value="EUR/USD">EUR/USD</option><option value="GBP/USD">GBP/USD</option><option value="USD/JPY">USD/JPY</option></select><button id="saveSettings" class="primary">ذخیره تنظیمات روی همین دستگاه</button></div>
+ <p class="note">کلید در حافظه محلی همین مرورگر ذخیره می‌شود؛ برای نسخه عمومی و امن، اتصال API باید از طریق بک‌اند انجام شود. پلن رایگان ارائه‌دهنده ممکن است محدودیت تعداد درخواست داشته باشد. کلید API خود را برای دیگران ارسال نکنید.</p>
+</div>
+<div class="card"><div class="section-head"><h2>اعلان‌ها</h2></div><p class="note">اعلان داخل برنامه فعال است. اعلان سیستمی فقط در مرورگرهای پشتیبانی‌شده و پس از اجازه کاربر کار می‌کند. ارسال پیام تلگرام نیازمند راه‌اندازی امن ربات و بک‌اند جداگانه است؛ توکن ربات را داخل این فایل قرار ندهید.</p><button id="testNotify" class="ghost">آزمایش اعلان</button></div>
+<div class="card"><div class="section-head"><h2>درباره نسخه</h2></div><p class="note">نسخه ۱ آزمایشی GOLD AUTO — قیمت رمزارزها زنده؛ طلا و فارکس با API کاربر؛ سیگنال و اعلان، بدون اتصال به حساب معاملاتی و بدون اجرای سفارش.</p></div>
+</section>
+
+<section id="historyPage" class="hidden"><div class="card"><div class="section-head"><h2>تاریخچه سیگنال‌ها</h2><button id="clearHistory" class="ghost">پاک کردن</button></div><div id="historyList" class="list"><div class="empty">هنوز تاریخچه‌ای وجود ندارد.</div></div></div></section>
+
+<nav><button class="active" data-page="marketPage"><span>↗</span>بازار</button><button data-page="signalsPage"><span>ϟ</span>سیگنال</button><button data-page="historyPage"><span>◷</span>تاریخچه</button><button data-page="toolsPage"><span>⚙</span>ابزار و تنظیمات</button></nav>
+<footer>GOLD AUTO · فقط تحلیل و اطلاع‌رسانی · ریسک بازار بر عهده کاربر است</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+let candles=[], ws=null, lastSignalKey="", signalHistory=[], refreshTimer=null, currentSource="binance", lastPrice=0, lastChange=0;
+const fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:n<1?6:2});
+const tfMap={'1m':'1m','5m':'5m','15m':'15m','1h':'1h','4h':'4h','1d':'1d'};
+function setStatus(txt,ok=false){$('connection').textContent=(ok?'● ':'● ')+txt;$('connection').style.color=ok?'var(--green)':'var(--gold2)'}
+function currentAsset(){return $('asset').value}
+function assetLabel(s){return ({BTCUSDT:'BTC / USDT',ETHUSDT:'ETH / USDT',SOLUSDT:'SOL / USDT',BNBUSDT:'BNB / USDT',XAUUSD:'XAU / USD',EURUSD:'EUR / USD',GBPUSD:'GBP / USD'})[s]||s}
+function closeWS(){if(ws){try{ws.close()}catch(e){}ws=null}if(refreshTimer){clearInterval(refreshTimer);refreshTimer=null}}
+async function loadCrypto(){
+ closeWS(); currentSource='binance'; candles=[];drawChart();setStatus('اتصال به Binance…');
+ const sym=currentAsset().toLowerCase(), interval=tfMap[$('tf').value]||'1m';
+ try{
+  const r=await fetch(`https://api.binance.com/api/v3/klines?symbol=${currentAsset()}&interval=${interval}&limit=100`);
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  const rows=await r.json();candles=rows.map(x=>({t:x[0],o:+x[1],h:+x[2],l:+x[3],c:+x[4],v:+x[5]}));
+  updateDisplay();setStatus('Binance زنده',true);
+  ws=new WebSocket(`wss://stream.binance.com:9443/ws/${sym}@kline_${interval}`);
+  ws.onmessage=e=>{const d=JSON.parse(e.data).k, c={t:d.t,o:+d.o,h:+d.h,l:+d.l,c:+d.c,v:+d.v};if(candles.length&&candles[candles.length-1].t===c.t)candles[candles.length-1]=c;else{candles.push(c);if(candles.length>100)candles.shift()}updateDisplay()};
+  ws.onerror=()=>setStatus('خطای اتصال؛ تلاش مجدد');
+  ws.onclose=()=>{if(currentAsset().endsWith('USDT'))setStatus('اتصال قطع شد؛ بروزرسانی را بزنید')};
+ }catch(e){setStatus('دریافت داده ناموفق');$('marketNote').textContent='اتصال به Binance برقرار نشد. اینترنت یا دسترسی سرویس را بررسی کنید.';console.error(e)}
+}
+async function loadTwelve(){
+ closeWS();currentSource='twelvedata';candles=[];drawChart();setStatus('دریافت قیمت طلا/فارکس…');
+ const key=$('apiKey').value.trim()||localStorage.getItem('ga_api_key')||'';
+ const sym=currentAsset()==='XAUUSD'?'XAU/USD':currentAsset()==='EURUSD'?'EUR/USD':'GBP/USD';
+ if(!key){$('source').textContent='منبع: نیازمند API Key';$('marketNote').textContent='برای قیمت زنده طلا/فارکس، در بخش ابزار و تنظیمات یک API Key از Twelve Data وارد کنید.';setStatus('کلید API لازم است');$('price').textContent='—';return}
+ try{
+  const interval=({'1m':'1min','5m':'5min','15m':'15min','1h':'1h','4h':'4h','1d':'1day'})[$('tf').value]||'1min';
+  const url=`https://api.twelvedata.com/time_series?symbol=${encodeURIComponent(sym)}&interval=${interval}&outputsize=100&apikey=${encodeURIComponent(key)}`;
+  const r=await fetch(url),j=await r.json();if(!j.values)throw new Error(j.message||'No values');
+  candles=j.values.slice().reverse().map(x=>({t:Date.parse(x.datetime),o:+x.open,h:+x.high,l:+x.low,c:+x.close,v:+(x.volume||0)}));
+  $('source').textContent='منبع: Twelve Data';$('marketNote').textContent='داده از Twelve Data دریافت می‌شود؛ به دلیل محدودیت پلن رایگان، قیمت با فاصله زمانی بروزرسانی می‌شود.';
+  updateDisplay();setStatus('داده دریافت شد',true);
+  refreshTimer=setInterval(loadTwelve,60000);
+ }catch(e){setStatus('خطای API');$('marketNote').textContent='دریافت داده ناموفق بود: '+e.message+' — کلید، سهمیه و نماد انتخابی را بررسی کنید.'}
+}
+function loadMarket(){if(currentAsset().endsWith('USDT'))loadCrypto();else loadTwelve()}
+function ema(values,period){if(values.length<period)return [];let k=2/(period+1),out=[],prev=values.slice(0,period).reduce((a,b)=>a+b,0)/period;out[period-1]=prev;for(let i=period;i<values.length;i++){prev=values[i]*k+prev*(1-k);out[i]=prev}return out}
+function rsi(values,period=14){if(values.length<=period)return 50;let gain=0,loss=0;for(let i=values.length-period;i<values.length;i++){let d=values[i]-values[i-1];if(d>0)gain+=d;else loss-=d}if(loss===0)return 100;return 100-100/(1+gain/loss)}
+function atr(cs,period=14){if(cs.length<period+1)return cs.at(-1)?.c*.005||0;let tr=[];for(let i=1;i<cs.length;i++)tr.push(Math.max(cs[i].h-cs[i].l,Math.abs(cs[i].h-cs[i-1].c),Math.abs(cs[i].l-cs[i-1].c)));return tr.slice(-period).reduce((a,b)=>a+b,0)/period}
+function analyze(){
+ const vals=candles.map(x=>x.c);if(vals.length<30)return {type:'WAIT',score:0,reason:'داده کافی نیست'};
+ const e9=ema(vals,9),e21=ema(vals,21),rv=rsi(vals),last=vals.at(-1),prev=vals.at(-2),vol=atr(candles);
+ let score=0,reason=[];
+ if(e9.at(-1)>e21.at(-1)){score++;reason.push('EMA9 بالاتر از EMA21')}else{score--;reason.push('EMA9 پایین‌تر از EMA21')}
+ if(last>e9.at(-1)){score++;reason.push('قیمت بالای EMA9')}else{score--;reason.push('قیمت پایین EMA9')}
+ if(rv>=52&&rv<=70){score++;reason.push('RSI مثبت')}else if(rv<=48&&rv>=30){score--;reason.push('RSI منفی')}
+ if(last>prev)score+=.5;else if(last<prev)score-=.5;
+ let type=score>=2?'BUY':score<=-2?'SELL':'WAIT';
+ let entry=last,sl=type==='BUY'?entry-vol*1.4:type==='SELL'?entry+vol*1.4:entry;
+ let tp1=type==='BUY'?entry+vol:type==='SELL'?entry-vol:entry,tp2=type==='BUY'?entry+vol*1.8:type==='SELL'?entry-vol*1.8:entry;
+ return {type,score:Math.round(Math.abs(score)/3.5*100),entry,sl,tp1,tp2,rsi:rv,atr:vol,reason:reason.join(' · ')};
+}
+function updateDisplay(){
+ if(!candles.length)return;const last=candles.at(-1);lastPrice=last.c;
+ $('price').textContent=fmt(last.c);$('assetName').textContent=assetLabel(currentAsset());$('lastUpdate').textContent='بروزرسانی '+new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+ const first=candles[0].o||last.c;lastChange=(last.c-first)/first*100;$('change').textContent=(lastChange>=0?'+':'')+lastChange.toFixed(2)+'%';$('change').className='change '+(lastChange>=0?'positive':'negative');
+ $('chartCaption').textContent=assetLabel(currentAsset())+' · '+$('tf').selectedOptions[0].textContent;
+ drawChart();const a=analyze();$('score').textContent=a.score+' / 100';$('trend').textContent=a.type==='BUY'?'صعودی':a.type==='SELL'?'نزولی':'خنثی';$('trend').style.color=a.type==='BUY'?'var(--green)':a.type==='SELL'?'var(--red)':'var(--gold2)';$('analysisTime').textContent=new Date().toLocaleTimeString('fa-IR');
+ renderCurrent(a);const key=currentAsset()+'-'+$('tf').value+'-'+candles.at(-1).t+'-'+a.type;
+ if(a.type!=='WAIT'&&key!==lastSignalKey){lastSignalKey=key;const item={...a,asset:assetLabel(currentAsset()),symbol:currentAsset(),tf:$('tf').value,time:new Date().toLocaleString('fa-IR')};signalHistory.unshift(item);signalHistory=signalHistory.slice(0,50);renderHistory();renderSignals();if($('notifyEnabled')?.checked)notifyUser('GOLD AUTO · '+(a.type==='BUY'?'سیگنال خرید':'سیگنال فروش'),item.asset+' | ورود '+fmt(a.entry));}
+}
+function renderCurrent(a){const cls=a.type==='BUY'?'buy':a.type==='SELL'?'sell':'neutral',label=a.type==='BUY'?'خرید':a.type==='SELL'?'فروش':'انتظار';$('currentSignal').className='signal';$('currentSignal').innerHTML=`<div class="signal-top"><b>${assetLabel(currentAsset())}</b><span class="pill ${cls}">${label} · امتیاز ${a.score}/100</span></div><div class="levels"><div class="level"><small>ورود</small><b>${fmt(a.entry||lastPrice)}</b></div><div class="level"><small>حد ضرر</small><b class="negative">${fmt(a.sl||lastPrice)}</b></div><div class="level"><small>هدف ۱</small><b class="positive">${fmt(a.tp1||lastPrice)}</b></div><div class="level"><small>هدف ۲</small><b class="positive">${fmt(a.tp2||lastPrice)}</b></div></div><p class="note">${a.reason||'برای سیگنال معتبر، داده بیشتری لازم است.'} · RSI ${Number(a.rsi||0).toFixed(1)}</p>`}
+function drawChart(){
+ const cv=$('chart'),ctx=cv.getContext('2d'),rect=cv.getBoundingClientRect(),dpr=window.devicePixelRatio||1;cv.width=Math.max(1,rect.width*dpr);cv.height=Math.max(1,rect.height*dpr);ctx.scale(dpr,dpr);const w=rect.width,h=rect.height;ctx.clearRect(0,0,w,h);
+ if(candles.length<2){ctx.fillStyle='#8e8776';ctx.font='12px Tahoma';ctx.textAlign='center';ctx.fillText('در انتظار داده بازار…',w/2,h/2);return}
+ let cs=candles.slice(-60),min=Math.min(...cs.map(c=>c.l)),max=Math.max(...cs.map(c=>c.h)),pad=(max-min)*.08||1;min-=pad;max+=pad;
+ ctx.strokeStyle='#292416';ctx.lineWidth=1;ctx.fillStyle='#8e8776';ctx.font='10px Tahoma';ctx.textAlign='left';
+ for(let i=0;i<4;i++){let y=12+i*(h-24)/3;ctx.beginPath();ctx.moveTo(8,y);ctx.lineTo(w-8,y);ctx.stroke();ctx.fillText(fmt(max-(max-min)*i/3),w-65,y-3)}
+ const cw=(w-24)/cs.length,body=Math.max(2,cw*.58);
+ cs.forEach((c,i)=>{let x=12+i*cw+cw/2,yo=12+(max-c.o)/(max-min)*(h-24),yc=12+(max-c.c)/(max-min)*(h-24),yh=12+(max-c.h)/(max-min)*(h-24),yl=12+(max-c.l)/(max-min)*(h-24),up=c.c>=c.o;ctx.strokeStyle=up?'#39e6b0':'#ff6582';ctx.fillStyle=ctx.strokeStyle;ctx.beginPath();ctx.moveTo(x,yh);ctx.lineTo(x,yl);ctx.stroke();ctx.fillRect(x-body/2,Math.min(yo,yc),body,Math.max(1,Math.abs(yc-yo)))});
+ const y=12+(max-cs.at(-1).c)/(max-min)*(h-24);ctx.setLineDash([4,4]);ctx.strokeStyle='#e9b84e';ctx.beginPath();ctx.moveTo(8,y);ctx.lineTo(w-8,y);ctx.stroke();ctx.setLineDash([]);
+}
+function renderSignals(){let f=$('signalFilter')?.value||'all',items=signalHistory.filter(x=>f==='all'||x.type===f);$('signalsList').innerHTML=items.length?items.map(x=>`<div class="signal"><div class="signal-top"><b>${x.asset}</b><span class="pill ${x.type==='BUY'?'buy':'sell'}">${x.type==='BUY'?'خرید':'فروش'}</span></div><div class="sub" style="margin-top:8px">${x.time} · ${x.tf}</div><div class="levels"><div class="level"><small>ورود</small><b>${fmt(x.entry)}</b></div><div class="level"><small>حد ضرر</small><b class="negative">${fmt(x.sl)}</b></div><div class="level"><small>هدف ۱</small><b class="positive">${fmt(x.tp1)}</b></div><div class="level"><small>هدف ۲</small><b class="positive">${fmt(x.tp2)}</b></div></div></div>`).join(''):'<div class="empty">سیگنالی مطابق این فیلتر ثبت نشده است.</div>'}
+function renderHistory(){ $('historyList').innerHTML=signalHistory.length?signalHistory.map(x=>`<div class="history-row"><span>${x.asset}<br><small class="sub">${x.time}</small></span><span class="pill ${x.type==='BUY'?'buy':'sell'}">${x.type==='BUY'?'خرید':'فروش'}</span><b>${fmt(x.entry)}</b></div>`).join(''):'<div class="empty">هنوز تاریخچه‌ای وجود ندارد.</div>'; }
+function notifyUser(title,body){if('Notification'in window&&Notification.permission==='granted'){new Notification(title,{body})}else{alert(title+'\n'+body)}}
+$('refresh').onclick=loadMarket;$('asset').onchange=loadMarket;$('tf').onchange=loadMarket;
+$('saveSettings').onclick=()=>{localStorage.setItem('ga_api_key',$('apiKey').value.trim());localStorage.setItem('ga_fx_symbol',$('fxSymbol').value);loadMarket();alert('تنظیمات روی همین دستگاه ذخیره شد.')};
+$('apiKey').value=localStorage.getItem('ga_api_key')||'';$('fxSymbol').value=localStorage.getItem('ga_fx_symbol')||'XAU/USD';
+$('notifyBtn').onclick=async()=>{if('Notification'in window){let p=await Notification.requestPermission();alert(p==='granted'?'اعلان سیستمی فعال شد.':'اجازه اعلان داده نشد.')}else alert('این مرورگر اعلان سیستمی را پشتیبانی نمی‌کند.')};
+$('testNotify').onclick=()=>notifyUser('GOLD AUTO','اعلان آزمایشی فعال است.');
+$('signalFilter').onchange=renderSignals;$('clearHistory').onclick=()=>{signalHistory=[];renderHistory();renderSignals()};
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');['marketPage','signalsPage','historyPage','toolsPage'].forEach(p=>$(p).classList.toggle('hidden',p!==b.dataset.page));if(b.dataset.page==='signalsPage')renderSignals()});
+window.addEventListener('resize',drawChart);loadMarket();
+</script>
+</body></html>
